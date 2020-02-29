@@ -1,22 +1,57 @@
 import React, {Component} from 'react';
-import { StyleSheet, css } from 'aphrodite';
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-
-import Config from '../config';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { Field } from 'formik';
+import config from '../config';
 class Input extends Component {
     constructor(props) {
         super(props);
-        this.state = {  };
+        this.state = { 
+            showPassword:false
+         };
+        window['input'] = this.props
     }
 
+    handleClickShowPassword = () => {
+        this.setState({...this.state, showPassword: !this.state.showPassword });
+      };
+    
+    handleMouseDownPassword = event => {
+        event.preventDefault();
+      };
     getRightType(){
+        const {showPassword} = this.state;
+        const {className} = this.props
         switch(this.props.type){
             case 'text': case 'number':
-            return <TextField label={this.props.label} variant="outlined" />
-            break;
+            return <TextField label={this.props.label} placeholder={this.props.placeholder} className={className} {...this.props.field} type={this.props.type} variant="outlined" />
+            case 'password':
+            return (
+                    <TextField 
+                        label={this.props.label} 
+                        {...this.props.field} 
+                        variant="outlined"
+                        type={showPassword?'text':'password'}
+                        className={className}
+                        placeholder={this.props.placeholder}
+                        InputProps={{ endAdornment:
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                                onMouseDown={this.handleMouseDownPassword}
+                              >
+                                {!this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          }} />
+                        
 
+            );
             default:
             break;
         }
@@ -25,10 +60,10 @@ class Input extends Component {
         const theme = createMuiTheme({
             palette: {
                 primary: {
-                    main: '#af7e2f',
+                    main: config.mainColor,
                   },
                 secondary: {
-                  main: '#af7e2f'
+                  main: config.mainColor
                 }
           }});
         return (
@@ -39,16 +74,20 @@ class Input extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-mainInput : {
-    padding: '1rem 1.3rem',
-    border:`solid 2px ${Config.mainColor}`,
-    borderRadius:'0.5rem',
-    backgroundColor:'rgba(220,220,220,0)',
-    transition:'all 0.3s ease-out',
-    ':hover':{
-        backgroundColor:'rgba(220,220,220,1)'
+
+class ConnectedInput extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  };
+    }
+    
+
+    render(){
+        return (
+            <Field {...this.props} component={Input} ></Field>
+            )
     }
 }
-});
-export default Input;
+
+
+export default ConnectedInput;

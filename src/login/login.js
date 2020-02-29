@@ -1,11 +1,11 @@
 import React , {Component} from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import { css } from 'aphrodite';
 import Input from '../baseComponents/Input';
 import Text from '../baseComponents/Text';
 import Form from '../baseComponents/Form';
 import Button from '../baseComponents/Button';
-import Config from '../config';
-import './login.css';
+import styles from './login.stylesheet';
+import './login.stylesheet.js';
 
 
 class login extends Component {
@@ -14,6 +14,9 @@ class login extends Component {
         super(props);
         this.state = {  };
     }
+    onSubmit = (values)=>{
+        console.log(values)
+    }
     render() {
 
         return (
@@ -21,9 +24,17 @@ class login extends Component {
                 <div className={css(styles.backgroundImage)}>
                 </div>
                 <div className={css(styles.loginContent)}>
-                <div style={{backgroundColor:"#fff",padding:"5rem"}}>
-                    <Input type="text" label ="This is Input"></Input>
-                </div>
+                    <div className={css(styles.formContainer)}>
+                    <img src={`${process.env.PUBLIC_URL}/images/logo.png`} className={css(styles.logo)} alt="logo" width='65px' height="auto"/>
+                    <Text Type={'h4'} Weight={'bold'} Color={'darker'} className={css(styles.mainText)}>Welcome Back,</Text>
+                    <div  className={css(styles.form)}>
+                    <Form formProps={{initialValues:{ Username: ''}, onSubmit:this.onSubmit}}>
+                    <Input type="text" name="Username" label="Username" placeholder="Please Enter Your Username" className={css(styles.inputFeilds)}></Input>
+                    <Input type="password" name="Password" label ="Password" placeholder="Please Enter Your Password" className={css(styles.inputFeilds)}></Input>
+                    <Button rounded centered long light className={css(styles.loginBtn)} type="submit">Login</Button>
+                    </Form>
+                    </div>
+                    </div>
                 </div>
             </div>
 
@@ -31,49 +42,5 @@ class login extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    loginMainWrapper:{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        position: 'relative'
-    },
-    backgroundImage:{
-        width: '100vw',
-        height: '100vh',
-        position: 'absolute',
-        backgroundPosition:'center',
-        backgroundRepeat:'no-repeat',
-        backgroundSize:'cover',
-        backgroundImage:`url(${process.env.PUBLIC_URL}/images/loginStock.jpg)`,
-        zIndex:-1
-    },
-    loginContent:{
-        width: '100vw',
-        height: '100vh',
-        position: 'absolute',
-        zIndex:0,
-        backgroundColor:'rgba(0,0,0,0.5)'
-    },
-    darkBackground:{
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        zIndex: '2',
-        background: '#000000',
-        opacity: '0.8'
-    },
-    stockImage:{
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        zIndex: '1',
-        backgroundImage: 'url(/images/loginStock.jpg)',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'right center'
-    }
-
-})
 
 export default login;

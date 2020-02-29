@@ -5,9 +5,9 @@ import Config from '../config';
 class Text extends Component {
     
     render() {
-        const {Type, Weight, Cap, Style, ClassName, Align, Color} = this.props;
+        const {Type, Weight, Cap, Style, className, Align, Color} = this.props;
         return (
-            <Type style={Style}  className={css(styles['text'], Weight && styles[Weight], Cap && styles['allCap'], Align && styles[Align], Color && styles['color'+Color] ) + " " + ClassName}>
+            <Type style={Style}  className={css(styles['text'], Weight && styles[Weight], Cap && styles['allCap'], Align && styles[Align], Color && styles['color'+Color] ) + " " + className}>
                 {this.props.children}
             </Type>
         );
@@ -22,7 +22,7 @@ const styles =  StyleSheet.create({
         fontWeight:'bold'
     },
     light:{
-        fontWeight:'light'
+        fontWeight:'lighter'
     },
     normal:{
         fontWeight:'normal'
@@ -45,6 +45,9 @@ const styles =  StyleSheet.create({
     colordarker:{
         color:Config.darker
     },
+    colorWhite:{
+        color:'#fff'
+    }
 });
 
 export default Text;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Form, Formik } from 'formik';
 
-class Form extends Component {
+class FormCustom extends Component {
     constructor(props) {
         super(props);
         this.state = {  };
@@ -8,11 +9,13 @@ class Form extends Component {
     render() {
         window['form'] = this.props
         return (
-            <form style={this.props.style}>
-                
-            </form>
+            <Formik {...this.props.formProps}>
+                <Form>
+                    {this.props.children}
+                </Form>
+            </Formik>
         );
     }
 }
 
-export default Form;
+export default FormCustom;
