@@ -5,6 +5,18 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import DateFnsUtils from '@date-io/date-fns';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+  KeyboardTimePicker
+} from '@material-ui/pickers';
 import { Field } from 'formik';
 import config from '../config';
 class Input extends Component {
@@ -15,6 +27,7 @@ class Input extends Component {
          };
         window['input'] = this.props
     }
+
 
     handleClickShowPassword = () => {
         this.setState({...this.state, showPassword: !this.state.showPassword });
@@ -52,6 +65,67 @@ class Input extends Component {
                         
 
             );
+            case 'date':
+              return (
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    inputVariant="outlined"
+                    margin="normal"
+                    id={this.props.label}
+                    format="MM/dd/yyyy"
+                    label={this.props.label} 
+                    className={className}
+                    {...this.props.field} 
+                    
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+              </MuiPickersUtilsProvider>
+              );
+
+              case 'time':
+                return (
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardTimePicker
+                      inputVariant="outlined"
+                      margin="normal"
+                      id={this.props.label}
+                      className={className}
+                      label={this.props.label} 
+                      {...this.props.field} 
+                      KeyboardButtonProps={{
+                        'aria-label': 'change time',
+                      }}
+                    />
+                </MuiPickersUtilsProvider>
+                );
+                case 'select':
+                  return (
+                    <FormControl variant="outlined">
+                    <InputLabel  id={this.props.label+'label'}>
+                    {this.props.label}
+                    </InputLabel>
+                    <Select
+                      labelId={this.props.label+'label'}
+                      id={this.props.label}
+                      {...this.props.field} 
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                  )
+              
+              case 'textarea':
+                return (
+                  <TextField label={this.props.label} multiline rowsMax="4" placeholder={this.props.placeholder} className={className} {...this.props.field} type={this.props.type} variant="outlined" />
+                )
+
             default:
             break;
         }

@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
        height:'1px',
        width:'80%',
        margin:'1rem auto',
-       backgroundColor:config.black,
-       opacity:0.1
+       backgroundColor:config.mainColor,
+       opacity:0.2
    },
    tableCellNotHeader:{
        padding:'8px 16px',

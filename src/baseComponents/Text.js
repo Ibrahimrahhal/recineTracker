@@ -15,7 +15,7 @@ class Text extends Component {
 }
 const styles =  StyleSheet.create({
     text:{
-        fontFamily:'Open Sans',
+        fontFamily:'arial',
         color:Config.mainColor
     },
     bold:{

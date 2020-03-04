@@ -9,7 +9,7 @@ export default class ButtonCustom extends Component {
     render() {
         const {className, type} = this.props
         return (
-        <Button type={type} className={css(style.button,this.props.rounded && style.rounded, this.props.bold && style.bold, this.props.light && style.light, this.props.long && style.long, this.props.centered && style.centered, this.props.style) + ' ' + className} onClick={this.props.onClick} variant="contained" color="primary">
+        <Button type={type} className={css(style.button,this.props.rounded && style.rounded, this.props.bold && style.bold, this.props.light && style.light, this.props.long && style.long, this.props.centered && style.centered, this.props.style, this.props.outline && style.outline, this.props.noShadow && style.noShadow) + ' ' + className} onClick={this.props.onClick} variant="contained" color="primary">
         {this.props.children}
         </Button>
         )
@@ -19,7 +19,7 @@ export default class ButtonCustom extends Component {
 
 const style = StyleSheet.create({
     button:{
-        padding:'0.6rem 2rem',
+        padding:'0.8rem 0.25rem',
         backgroundColor: config.mainColor,
         color:config.whiteColor,
         borderStyle:'none',
@@ -42,5 +42,13 @@ const style = StyleSheet.create({
         display:'block',
         marginRight:'auto',
         marginLeft:'auto'
+    },
+    outline:{
+        backgroundColor:'transparent !important',
+        border:`solid 1.8px ${config.getMainColorWithOpacity(0.8)}`,
+        color:config.mainColor
+    },
+    noShadow:{
+        boxShadow:'none'
     }
 })

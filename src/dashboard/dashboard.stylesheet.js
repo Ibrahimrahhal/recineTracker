@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
      minWidth:'200px',
      maxWidth:'250px',
      backgroundColor:config.black,
+     zIndex:'5'
  },
 nameBox:{
     backgroundColor:config.darker,

@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiFormControl-root ,.MuiFormControl-root .MuiInputBase-multiline{
+  height: 100%;
+  width: 100%;
+}
+.MuiFormControl-marginNormal {
+
+  margin:0 !important;
+}
+*{
+  box-sizing: border-box;
+}
+
+.small, small {
+  font-size: 70% !important;
+}
