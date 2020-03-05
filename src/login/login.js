@@ -13,12 +13,19 @@ class login extends Component {
     static contextType = UserContext;
     constructor(props) {
         super(props);
-        this.state = {  };
+        this.state = { 
+            loading:false
+         };
     }
     onSubmit = (values)=>{
         console.log(values);
+        if(this.state.loading)
+        return;
+        this.setState({...this.state, loading:true});
         this.context.handleLogin( values.Username, values.Password).then((user)=>{
             this.props.history.push('/shifts');
+        }).catch((err)=>{
+            this.setState({...this.state, loading:false});
         });
     }
     render() {
@@ -36,7 +43,7 @@ class login extends Component {
                     <Form formProps={{initialValues:{ Username: ''}, onSubmit:this.onSubmit}}>
                     <Input type="text" name="Username" label="Username" placeholder="Please Enter Your Username" className={css(styles.inputFeilds)}></Input>
                     <Input type="password" name="Password" label ="Password" placeholder="Please Enter Your Password" className={css(styles.inputFeilds)}></Input>
-                    <Button rounded centered long light className={css(styles.loginBtn)} type="submit">Login</Button>
+                    <Button rounded loading={this.state.loading} centered long light className={css(styles.loginBtn)} type="submit">Login</Button>
                     </Form>
                     </div>
                     </div>

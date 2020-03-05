@@ -76,7 +76,8 @@ class Input extends Component {
                     label={this.props.label} 
                     className={className}
                     {...this.props.field} 
-                    
+                    value={this.props.field.value?(new Date(this.props.field.value)):(new Date())}
+                    onChange={value => {this.props.form.setFieldValue(this.props.field.name,value.toString())}} 
                     KeyboardButtonProps={{
                       'aria-label': 'change date',
                     }}
@@ -85,21 +86,23 @@ class Input extends Component {
               );
 
               case 'time':
-                return (
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardTimePicker
-                      inputVariant="outlined"
-                      margin="normal"
-                      id={this.props.label}
-                      className={className}
-                      label={this.props.label} 
-                      {...this.props.field} 
-                      KeyboardButtonProps={{
-                        'aria-label': 'change time',
-                      }}
-                    />
-                </MuiPickersUtilsProvider>
-                );
+                  return (
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <KeyboardTimePicker
+                        inputVariant="outlined"
+                        margin="normal"
+                        id={this.props.label}
+                        className={className}
+                        label={this.props.label} 
+                        {...this.props.field}
+                        value={this.props.field.value?(new Date(this.props.field.value)):(new Date())}
+                        onChange={value => {this.props.form.setFieldValue(this.props.field.name,value.toString())}} 
+                        KeyboardButtonProps={{
+                          'aria-label': 'change time',
+                        }}
+                      />
+                  </MuiPickersUtilsProvider>
+                  );
                 case 'select':
                   return (
                     <FormControl variant="outlined">

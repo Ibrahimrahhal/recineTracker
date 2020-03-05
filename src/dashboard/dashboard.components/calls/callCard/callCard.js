@@ -10,11 +10,11 @@ import Button from '../../../../baseComponents/Button';
 
 
 class callCard extends Component {
-    state = { isEditModeActive:true }
+    state = { isEditModeActive:false }
     render() {
         return (
             
-            <div className={css(styles.cardContainer, this.state.isEditModeActive && styles.cardContainerEditMode)}>
+            <div className={css(styles.cardContainer, this.state.isEditModeActive && styles.cardContainerEditMode)} onClick={this.openEdit}>
                 <NgIf exp={!this.state.isEditModeActive}>
                     <Text Type={'h6'} Weight={"bold"} Color={'darker'} className={css(styles.textLocation)}>
                         {this.props.location}
@@ -29,32 +29,32 @@ class callCard extends Component {
                 </NgIf>
 
                 <NgIf exp={this.state.isEditModeActive}>
-                    <Form>
+                    <Form formProps={{initialValues :{location:"", complNo:"", complNo2:"", typeOfCall:"" ,typeOfCall:""}}}>
                         <div className={css(styles.editContainer)}>
                             <div className={css(styles.editFirstCol)}>
                                 <div className={css(styles.flexGrowTwo)}>
-                                    <Input type="textarea" label="location"/>
+                                    <Input type="textarea" name="location" label="location"/>
                                 </div>
                                 <div className={css(styles.flexGrowOne,styles.marginTopOne)}>
                                     <div className={css(styles.displayFlex)}>
                                         <div className={css(styles.flexGrowOne,styles.marginRightQ)}>
-                                        <Input type="text" label="Compl. No"/>
+                                        <Input type="text" name="complNo" label="Compl. No"/>
                                         </div>
                                         <div className={css(styles.flexGrowOne, styles.marginLeftQ)}>
-                                        <Input type="time" label="Start Time"/>
+                                        <Input type="time" name="startTime" label="Start Time"/>
                                         </div>
                                         </div>
                                 </div>
                             </div>
                             <div className={css(styles.editSecondCol)}>
                                 <div className={css(styles.flexGrowOne)}>
-                                    <Input type="text" label="Compl. No"/>
+                                    <Input type="text" name="complNo2" label="Compl. No"/>
                                 </div>
                                 <div className={css(styles.flexGrowOne)}>
-                                    <Input type="text" label="Type Of Call"/>
+                                    <Input type="text" name="typeOfCall" label="Type Of Call"/>
                                 </div>
                                 <div className={css(styles.flexGrowOne, styles.marginTopOne)}>
-                                    <Input type="time" label="End Time"/>
+                                    <Input type="time" name="endTime" label="End Time"/>
                                 </div>
                             </div>
                             <div className={css(styles.editSecondCol)}>
@@ -69,6 +69,10 @@ class callCard extends Component {
             </div>
             
         );
+    }
+    openEdit = ()=>{
+        if(!this.state.isEditModeActive)
+        this.setState({...this.state,isEditModeActive:true})
     }
 }
 

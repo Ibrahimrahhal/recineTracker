@@ -33,6 +33,10 @@ sidebarMenuItem:{
         backgroundColor:config.darker,
     }
 },
+activeSideMenu:{
+    backgroundColor:config.darker,
+
+},
 icons:{
     height:'23px',
     width:'23px',
@@ -59,6 +63,11 @@ logo:{
     right:'10px',
     width:'60px', 
     height:'auto'
+},
+shiftsSubMenu:{
+    fontSize:'60%',
+    padding:'0.3rem 2.2rem',
+    display:'block'
 }
 });
 

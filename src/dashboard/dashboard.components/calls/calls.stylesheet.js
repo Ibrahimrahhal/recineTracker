@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
         width:'85%',
         margin:'1.9rem auto',
     },
+    scrolbars:{
+        maxHeight:"65vh"
+    }
 });
 
 export default styles;

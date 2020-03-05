@@ -14,27 +14,27 @@ class main extends Component {
     render() {
         return (
             <div className={css(styles.mainsContainer)}>
-            <Text Type="h3" Color={'darker'} Weight={'bold'}>First Shift's Main Info</Text>
+            <Text Type="h3" Color={'darker'} Weight={'bold'}>Active Shift's Main Info</Text>
             <div className={css(styles.lineBreak)}></div>
 
             <div className={css(styles.formContainer)}>
-                <Form onSubmit={this.onSubmit}>
+                <Form formProps={{initialValues:{person1:"",person2:"",squad1:"",squad2:"",assign1:"",assign2:""}}} onSubmit={this.onSubmit}>
                     <div className={css(styles.parent)}>
-                        <Input className={css(styles.dateRow)} type="date" label={"Shift Data"}/>
+                        <Input className={css(styles.dateRow)} name="shiftDate" type="date" label={"Shift Data"}/>
                     </div>
                     <div className={css(styles.parent, styles.parentTime)}>
-                        <Input className={css(styles.timeRow)} type="time" label={"Start Time"}/>
-                        <Input className={css(styles.timeRow)} type="time" label={"End Time"}/>
+                        <Input className={css(styles.timeRow)} name="startTime" type="time" label={"Start Time"}/>
+                        <Input className={css(styles.timeRow)} type="endTime" label={"End Time"}/>
                     </div>
                     <div className={css(styles.parent)}>
-                    <Input className={css(styles.nameRowLong)} type="text" label={"First Person's Name"}/>
-                    <Input  className={css(styles.nameRowShort)} type="text" label={"Squad"}/>
-                    <Input  className={css(styles.nameRowShort)} type="text" label={"Assign"}/>
+                    <Input className={css(styles.nameRowLong)} type="text" name="person1" label={"First Person's Name"}/>
+                    <Input  className={css(styles.nameRowShort)} type="text" name="squad1" label={"Squad"}/>
+                    <Input  className={css(styles.nameRowShort)} type="text" name="assign1" label={"Assign"}/>
                     </div>
                     <div className={css(styles.parent)}>
-                    <Input className={css(styles.nameRowLong)} type="text" label={"Second Person's Name"}/>
-                    <Input  className={css(styles.nameRowShort)} type="text" label={"Squad"}/>
-                    <Input  className={css(styles.nameRowShort)} type="text" label={"Assign"}/>
+                    <Input className={css(styles.nameRowLong)} type="text" name="person2" label={"Second Person's Name"}/>
+                    <Input  className={css(styles.nameRowShort)} type="text" name="squad2" label={"Squad"}/>
+                    <Input  className={css(styles.nameRowShort)} type="text" name="assign2" label={"Assign"}/>
                     </div>
                 </Form>
             </div>

@@ -12,15 +12,18 @@ class calls extends Component {
     render() {
         return (
             <div className={css(styles.callsContainer)}>
-                <Text Type="h3" Color={'darker'} Weight={'bold'}>First Shift's Calls</Text>
+                <Text Type="h3" Color={'darker'} Weight={'bold'}>Active Shift's Calls</Text>
                 <div className={css(styles.lineBreak)}></div>
                 <div className={css(styles.addBtnContainer)}>
                     <Button long rounded><small>+ New Call</small></Button>
                 </div>
-
-                <div className={css(styles.callsContainer)}>
-                    <CallCard location="454 454 das  Amman, Jordan Issa Marrar st.sad asdsadasdasd"></CallCard>
-                </div>
+                <PerfectScrollbar className={css(styles.scrolbars)}>
+                    <div className={css(styles.callsContainer)}>
+                        <CallCard location="454 454 das  Amman, Jordan Issa Marrar st.sad asdsadasdasd"></CallCard>
+                        <CallCard location="454 454 das  Amman, Jordan Issa Marrar st.sad asdsadasdasd"></CallCard>
+                        <CallCard location="454 454 das  Amman, Jordan Issa Marrar st.sad asdsadasdasd"></CallCard>
+                    </div>
+                </PerfectScrollbar>
             </div>
             );
     }

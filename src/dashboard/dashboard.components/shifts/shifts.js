@@ -20,7 +20,7 @@ class shifts extends Component {
          }
     }
     componentDidMount(){
-        window['shifts'] = this;
+        // this.context.removeActiveShift();
         getAllShifts(this.context.user).then((res)=>{
             this.setState({...this.state, shifts:res.data.Result})
         });
@@ -28,7 +28,7 @@ class shifts extends Component {
 
     selectShift(shiftID){
         this.context.selectShift(shiftID);
-        this.props.history.push(`/shifts/${shiftID}`)
+        this.props.history.push(`/shift/${shiftID}`)
     }
     data = [{
         shiftID :12,

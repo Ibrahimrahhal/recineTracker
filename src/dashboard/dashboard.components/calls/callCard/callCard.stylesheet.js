@@ -10,7 +10,8 @@ cardContainer:{
     backgroundColor:'#fff',
     border:`solid 1px ${config.getMainColorWithOpacity(0.5)}`,
     boxShadow: ` 0px 0px 10px 0px ${config.getMainColorWithOpacity(0.5)}`,
-    position:'relative'
+    position:'relative',
+    margin:"0.7rem 0"
 
 },
 cardContainerEditMode:{

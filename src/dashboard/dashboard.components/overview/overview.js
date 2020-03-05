@@ -13,7 +13,7 @@ class overview extends Component {
     render() {
         return (
             <div className={css(styles.overViewContainer)}>
-                <Text Type="h3" Color={'darker'} Weight={'bold'}>First Shift's Overview</Text>
+                <Text Type="h3" Color={'darker'} Weight={'bold'}>Active Shift's Overview</Text>
                 <div className={css(styles.lineBreak)}></div>
                 <div className={css(styles.cardsContainer)}>
                     <div className={css(styles.firstLineOfCards)}>

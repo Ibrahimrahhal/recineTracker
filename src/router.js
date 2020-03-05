@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from "react-router-dom";
 import UserContext from './services/userContext.js';
 import Login from './login/login';
 import Dashboard from './dashboard/dashboard';
@@ -9,8 +9,8 @@ export default class router extends Component {
         return (
             <Router>
                 <Switch>
-                    <RouteWrapper Component={Login} public path="/login" />
-                    <RouteWrapper Component={Dashboard} path="/" />
+                    <RouteWrapper Component={withRouter(Login)} public path="/login" />
+                    <RouteWrapper Component={withRouter(Dashboard)} path="/" />
                 </Switch>
             </Router>
         )

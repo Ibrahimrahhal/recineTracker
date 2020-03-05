@@ -52,3 +52,6 @@
 .small, small {
   font-size: 70% !important;
 }
+a:hover{
+  text-decoration: none !important;
+}

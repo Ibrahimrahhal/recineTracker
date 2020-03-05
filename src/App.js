@@ -5,14 +5,16 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { login } from './services/http';
 import UserContext from './services/userContext';
+
 class App extends Component {
   state={
     user:null,
     activeShift:null
   }
+
   render(){
     return (
-      <UserContext.Provider value={{user:this.state.user, handleLogin:this.handleLogin, activeShift:this.state.activeShift, selectShift:this.selectShift}}>
+      <UserContext.Provider value={{user:this.state.user, handleLogin:this.handleLogin, activeShift:this.state.activeShift, selectShift:this.selectShift, removeActiveShift:this.removeActiveShift}}>
         <Router></Router>
       </UserContext.Provider>
     );
@@ -47,6 +49,12 @@ class App extends Component {
   selectShift = (shiftID)=>{
     this.setState({...this.state, activeShift:shiftID});
   }
+
+  removeActiveShift = ()=>{
+    this.setState({...this.state, activeShift:null});
+
+  }
+
 
 }
 
