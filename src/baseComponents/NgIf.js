@@ -5,9 +5,10 @@ class NgIf extends Component {
         this.state = {  };
     }
     render() {
+        let Else = this.props.else
         return (
             <>
-            {this.props.exp?this.props.children:""}
+            {this.props.exp?this.props.children:Else?Else:""}
             </>
         );
     }

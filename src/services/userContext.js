@@ -1,2 +1,3 @@
 import React from 'react';
-export default const user= React.createContext('user');
+const user= React.createContext('user');
+export default user;

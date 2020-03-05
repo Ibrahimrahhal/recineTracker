@@ -1,21 +1,32 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import UserContext from './services/userContext.js';
 import Login from './login/login';
 import Dashboard from './dashboard/dashboard';
+import NgIf from './baseComponents/NgIf';
 export default class router extends Component {
     render() {
         return (
             <Router>
                 <Switch>
-                    <Route path="/login">
-                        <Login></Login>
-                    </Route>
-                    <Route path="/">
-                        <Dashboard></Dashboard>
-                    </Route>
+                    <RouteWrapper Component={Login} public path="/login" />
+                    <RouteWrapper Component={Dashboard} path="/" />
                 </Switch>
-            
             </Router>
         )
+    }
+}
+class RouteWrapper extends Component{
+    static contextType = UserContext;
+
+    render(){
+        const { user } = this.context;
+        const { Component } = this.props;
+
+        return (
+            <NgIf exp={user || this.props.public} else={<Redirect to="/login"/>}>
+                <Route path={this.props.path} component={Component} />
+            </NgIf>
+        );
     }
 }

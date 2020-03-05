@@ -8,11 +8,27 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { css } from 'aphrodite';
+import { getAllShifts } from '../../../services/http'
 import styles from './shifts.stylesheet';
+import UserContext from '../../../services/userContext';
 class shifts extends Component {
+    static contextType = UserContext;
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            shifts:[]
+         }
+    }
+    componentDidMount(){
+        window['shifts'] = this;
+        getAllShifts(this.context.user).then((res)=>{
+            this.setState({...this.state, shifts:res.data.Result})
+        });
+    }
+
+    selectShift(shiftID){
+        this.context.selectShift(shiftID);
+        this.props.history.push(`/shifts/${shiftID}`)
     }
     data = [{
         shiftID :12,
@@ -75,7 +91,7 @@ class shifts extends Component {
                         {
                             this.data.map((row,index)=>{
                                 return (
-                                    <TableRow align="center" className={css(index%2 == 0 ? styles.tableBodyEven:styles.tableBodyOdd)}>
+                                    <TableRow onClick={()=>this.selectShift(row.shiftID)} align="center" className={css(index%2 == 0 ? styles.tableBodyEven:styles.tableBodyOdd)}>
                                         <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.shiftID}</Text></TableCell>
                                         <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.shiftDate}</Text></TableCell>
                                         <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.totalTimeCFS}</Text></TableCell>

@@ -5,19 +5,24 @@ import Text from '../baseComponents/Text';
 import Form from '../baseComponents/Form';
 import Button from '../baseComponents/Button';
 import styles from './login.stylesheet';
+import UserContext from '../services/userContext';
 import './login.stylesheet.js';
 
 
 class login extends Component {
-    
+    static contextType = UserContext;
     constructor(props) {
         super(props);
         this.state = {  };
     }
     onSubmit = (values)=>{
-        console.log(values)
+        console.log(values);
+        this.context.handleLogin( values.Username, values.Password).then((user)=>{
+            this.props.history.push('/shifts');
+        });
     }
     render() {
+        window["cone"] =this;
 
         return (
             <div className={css(styles.loginMainWrapper)}>
