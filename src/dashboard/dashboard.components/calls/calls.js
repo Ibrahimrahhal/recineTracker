@@ -19,9 +19,9 @@ class calls extends Component {
                 </div>
                 <PerfectScrollbar className={css(styles.scrolbars)}>
                     <div className={css(styles.callsContainer)}>
-                        <CallCard location="454 454 das  Amman, Jordan Issa Marrar st.sad asdsadasdasd"></CallCard>
-                        <CallCard location="454 454 das  Amman, Jordan Issa Marrar st.sad asdsadasdasd"></CallCard>
-                        <CallCard location="454 454 das  Amman, Jordan Issa Marrar st.sad asdsadasdasd"></CallCard>
+                        <CallCard location="Racine, WI 53403"></CallCard>
+                        <CallCard location="75 7th St, Racine, WI 53403"></CallCard>
+                        <CallCard location="603 Main St, Racine, WI 53403"></CallCard>
                     </div>
                 </PerfectScrollbar>
             </div>

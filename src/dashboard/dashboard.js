@@ -9,6 +9,7 @@ import UserContext from '../services/userContext';
 import NgIf from '../baseComponents/NgIf';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { NavLink  } from "react-router-dom";
+import {getAllArrests, getAllClassifications, getAllCitations} from '../services/http.js';
 class dashboard extends Component {
     static contextType = UserContext;
     
@@ -20,7 +21,11 @@ class dashboard extends Component {
         this.props.history.listen((location)=>{
             if(location.pathname.includes("shifts"))
                 this.context.removeActiveShift();
-        })
+        });
+        getAllArrests(this.context.user);
+        getAllClassifications(this.context.user);
+        getAllCitations(this.context.user);
+
     }
     render() { 
         return ( 

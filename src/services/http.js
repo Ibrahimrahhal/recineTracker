@@ -8,7 +8,7 @@ export const login = (username,password)=>{
     };
 
 
-export const getAllShifts = (user)=>{
+export function getAllShifts(user){
         return axios.get(`${config.baseApi}GetAllReports`,{
             params:{
                 EmpID:user.ID
@@ -17,6 +17,30 @@ export const getAllShifts = (user)=>{
                 Authorization:`Bearer ${user.token}`
             }
         });
+};
+
+export function getAllClassifications(user){
+        return axios.get(`${config.baseApi}GetAllClassifications`,{
+            headers:{
+                Authorization:`Bearer ${user.token}`
+            }
+        });
+}
+
+export function getAllCitations(user){
+    return axios.get(`${config.baseApi}GetAllCitations`,{
+        headers:{
+            Authorization:`Bearer ${user.token}`
+        }
+    });
+}
+
+export function getAllArrests(user){
+    return axios.get(`${config.baseApi}GetAllArrests`,{
+        headers:{
+            Authorization:`Bearer ${user.token}`
+        }
+    });
 }
 
 
