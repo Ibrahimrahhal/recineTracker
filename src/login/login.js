@@ -7,7 +7,7 @@ import Button from '../baseComponents/Button';
 import styles from './login.stylesheet';
 import UserContext from '../services/userContext';
 import './login.stylesheet.js';
-
+import { toast } from 'react-toastify';
 
 class login extends Component {
     static contextType = UserContext;
@@ -17,14 +17,24 @@ class login extends Component {
             loading:false
          };
     }
+    componentDidMount(){
+        // setInterval(()=>{
+        // toast.error("hi there")
+        // },5000)
+    }
     onSubmit = (values)=>{
         console.log(values);
         if(this.state.loading)
         return;
         this.setState({...this.state, loading:true});
         this.context.handleLogin( values.Username, values.Password).then((user)=>{
+            if(user.isAdmin)
+            this.props.history.push('/admin');
+            else
             this.props.history.push('/shifts');
+
         }).catch((err)=>{
+            toast.error("Wrong Username or Password");
             this.setState({...this.state, loading:false});
         });
     }

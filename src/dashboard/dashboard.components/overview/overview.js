@@ -4,11 +4,20 @@ import Button from '../../../baseComponents/Button';
 import Text from '../../../baseComponents/Text';
 import styles from './overview.stylesheet';
 import Card from '../../../baseComponents/Card';
+import UserContext from '../../../services/userContext';
 class overview extends Component {
+    static contextType = UserContext;
+
     constructor(props) {
         super(props);
         this.state = {  };
         window['overview'] =this.props;
+    }
+
+    convert(string){
+        string = string.split(':');
+        let total = parseInt(string[0]) * 60 + parseInt(string[1]);
+        return total
     }
     render() {
         return (
@@ -17,19 +26,19 @@ class overview extends Component {
                 <div className={css(styles.lineBreak)}></div>
                 <div className={css(styles.cardsContainer)}>
                     <div className={css(styles.firstLineOfCards)}>
-                        <Card title={'Dispatched Calls'} number={32}/>
-                        <Card title={'Self-Initiated Calls'} number={12}/>
-                        <Card title={'Dispatched Calls Duration'} number={85}/>
-                        <Card title={'Self-Initiated Duration'} number={47}/>
+                        <Card title={'Dispatched Calls'} number={this.context.activeShift.TotalDispatchedCalls}/>
+                        <Card title={'Self-Initiated Calls'} number={this.context.activeShift.TotalSelfInitiatedCalls}/>
+                        <Card title={'Dispatched Calls Duration'} number={this.convert(this.context.activeShift.TotalTimeCFS)}/>
+                        <Card title={'Self-Initiated Duration'} number={this.convert(this.context.activeShift.TotalTimeSelfInitiated)}/>
                     </div>
                     <div className={css(styles.lineBreakSecond)}></div>
                     <div>
 
                     </div>
                     <div className={css(styles.SecondLineOfCards)}>
-                    <Card title={'Classifications'} className={css(styles.addMarginToCard)} number={8}/>
-                    <Card title={'Arrests'} className={css(styles.addMarginToCard)} number={5}/>
-                    <Card title={'Citations'} className={css(styles.addMarginToCard)} number={2}/>
+                    <Card title={'Total Calls'} className={css(styles.addMarginToCard)} number={this.context.activeShift.TotalCalls}/>
+                    <Card title={'Arrests'} className={css(styles.addMarginToCard)} number={this.context.activeShift.TotalArrests}/>
+                    <Card title={'Citations'} className={css(styles.addMarginToCard)} number={this.context.activeShift.TotalCitations}/>
                     </div>
                 </div>
 

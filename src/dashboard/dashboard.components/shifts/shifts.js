@@ -11,70 +11,55 @@ import { css } from 'aphrodite';
 import { getAllShifts } from '../../../services/http'
 import styles from './shifts.stylesheet';
 import UserContext from '../../../services/userContext';
+import NgIf from '../../../baseComponents/NgIf';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 class shifts extends Component {
     static contextType = UserContext;
     constructor(props) {
         super(props);
         this.state = { 
-            shifts:[]
+            shifts:[],
+            loading:true
          }
     }
     componentDidMount(){
-        // this.context.removeActiveShift();
         getAllShifts(this.context.user).then((res)=>{
-            this.setState({...this.state, shifts:res.data.Result})
+            if(JSON.stringify(res.data.Result) != JSON.stringify(this.context.reports))
+            this.context.setReports(res.data.Result);
+            this.setState({...this.state, loading:false})
+        }).catch((err)=>{
+            if(this.context.reports.length > 0)
+                this.context.setReports([]);
+            this.setState({...this.state, loading:false})
+
         });
     }
 
-    selectShift(shiftID){
-        this.context.selectShift(shiftID);
-        this.props.history.push(`/shift/${shiftID}`)
+    selectShift(shift){
+        this.context.selectShift(shift);
+        this.props.history.push(`/shift/${shift.ShiftID}`)
     }
-    data = [{
-        shiftID :12,
-        shiftDate:'12-Jan-2019',
-        totalTimeCFS:'7',
-        totalArrests:'3',
-        totalCitations:'3',
-        totalCalls:'7'
-    },{
-        shiftID :12,
-        shiftDate:'12-Jan-2019',
-        totalTimeCFS:'7',
-        totalArrests:'3',
-        totalCitations:'3',
-        totalCalls:'7'
-    },
-    {
-        shiftID :12,
-        shiftDate:'12-Jan-2019',
-        totalTimeCFS:'7',
-        totalArrests:'3',
-        totalCitations:'3',
-        totalCalls:'7'
-    },{
-        shiftID :12,
-        shiftDate:'12-Jan-2019',
-        totalTimeCFS:'7',
-        totalArrests:'3',
-        totalCitations:'3',
-        totalCalls:'7'
-    },{
-        shiftID :12,
-        shiftDate:'12-Jan-2019',
-        totalTimeCFS:'7',
-        totalArrests:'3',
-        totalCitations:'3',
-        totalCalls:'7'
-    }]
+
+    newShift= ()=>{
+        this.context.selectShift({
+            ShiftID: -1
+        });
+        this.props.history.push(`/shift/${-1}/details`)
+    }
+
     render() { 
         return ( 
             <div className={css(styles.shiftsContainer)}>
                 <Text Type="h3" Color={'darker'} Weight={'bold'}>Your Shifts</Text>
                 <div className={css(styles.btnContainer)}>
-                    <Button rounded long light className={css(styles.addBtn)}><AddIcon/> Report A New Shift</Button>
+                    <Button rounded long light className={css(styles.addBtn)} onClick={this.newShift}><AddIcon/> Report A New Shift</Button>
                 </div>
                 <div className={css(styles.lineBreak)}></div>
+                <NgIf exp={this.state.loading}>
+                <CircularProgress size={50} className={css(styles.loader)}/>
+                </NgIf>
+                <NgIf exp={this.context.reports && !this.state.loading}>
                 <div className={css(styles.table)}>
                 <Table>
                     <TableHead className={css(styles.tableHead)}>
@@ -89,15 +74,15 @@ class shifts extends Component {
                     </TableHead>
                     <TableBody className={css(styles.tableBody)}>
                         {
-                            this.data.map((row,index)=>{
+                            this.context.reports.map((row,index)=>{
                                 return (
-                                    <TableRow onClick={()=>this.selectShift(row.shiftID)} align="center" className={css(index%2 == 0 ? styles.tableBodyEven:styles.tableBodyOdd)}>
-                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.shiftID}</Text></TableCell>
-                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.shiftDate}</Text></TableCell>
-                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.totalTimeCFS}</Text></TableCell>
-                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.totalArrests}</Text></TableCell>
-                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.totalCitations}</Text></TableCell>
-                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.totalCalls}</Text></TableCell>
+                                    <TableRow onClick={()=>this.selectShift(row)} align="center" className={css(index%2 == 0 ? styles.tableBodyEven:styles.tableBodyOdd)}>
+                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.ShiftID}</Text></TableCell>
+                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.ShiftDate}</Text></TableCell>
+                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.TotalTimeCFS}</Text></TableCell>
+                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.TotalArrests}</Text></TableCell>
+                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.TotalCitations}</Text></TableCell>
+                                        <TableCell align="center" className={css(styles.tableCellNotHeader)}><Text Type="small" Color={'darker'} Weight={'bold'} >{row.TotalCalls}</Text></TableCell>
                                     </TableRow>
                                 )
                             })
@@ -106,6 +91,8 @@ class shifts extends Component {
                     </TableBody>
                 </Table>
                 </div>
+                </NgIf>
+
             </div> 
             );
     }

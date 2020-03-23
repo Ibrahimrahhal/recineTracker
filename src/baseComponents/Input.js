@@ -11,6 +11,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import DateFnsUtils from '@date-io/date-fns';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Radio from './RadioCustom';
+import { Checkbox } from '@material-ui/core';
+import { StyleSheet, css } from 'aphrodite';
 
 import {
   MuiPickersUtilsProvider,
@@ -36,12 +39,22 @@ class Input extends Component {
     handleMouseDownPassword = event => {
         event.preventDefault();
       };
+
+    convertToTomeString(date){
+      return `${date.getHours()}:${date.getMinutes()}`;
+    }
+    convertFromTimeString(string){
+      return `17 dec 2017 ${string}`;
+    }
+    convertDateToString(date){
+      return `${date.getUTCFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+    }
     getRightType(){
         const {showPassword} = this.state;
         const {className} = this.props
         switch(this.props.type){
             case 'text': case 'number':
-            return <TextField label={this.props.label} placeholder={this.props.placeholder} className={className} {...this.props.field} type={this.props.type} variant="outlined" />
+            return <TextField label={this.props.label} placeholder={this.props.placeholder} className={className} {...this.props.field} type={this.props.type} disabled={this.props.disabled}  variant="outlined" />
             case 'password':
             return (
                     <TextField 
@@ -51,6 +64,7 @@ class Input extends Component {
                         type={showPassword?'text':'password'}
                         className={className}
                         placeholder={this.props.placeholder}
+                        disabled={this.props.disabled} 
                         InputProps={{ endAdornment:
                             <InputAdornment position="end">
                               <IconButton
@@ -77,10 +91,11 @@ class Input extends Component {
                     className={className}
                     {...this.props.field} 
                     value={this.props.field.value?(new Date(this.props.field.value)):(new Date())}
-                    onChange={value => {this.props.form.setFieldValue(this.props.field.name,value.toString())}} 
+                    onChange={value => {this.props.form.setFieldValue(this.props.field.name,this.convertDateToString(value))}} 
                     KeyboardButtonProps={{
                       'aria-label': 'change date',
                     }}
+                    disabled={this.props.disabled} 
                   />
               </MuiPickersUtilsProvider>
               );
@@ -95,8 +110,9 @@ class Input extends Component {
                         className={className}
                         label={this.props.label} 
                         {...this.props.field}
-                        value={this.props.field.value?(new Date(this.props.field.value)):(new Date())}
-                        onChange={value => {this.props.form.setFieldValue(this.props.field.name,value.toString())}} 
+                        value={this.props.field.value?(this.convertFromTimeString(this.props.field.value)):(new Date())}
+                        onChange={value => {this.props.form.setFieldValue(this.props.field.name,this.convertToTomeString(value))}} 
+                        disabled={this.props.disabled} 
                         KeyboardButtonProps={{
                           'aria-label': 'change time',
                         }}
@@ -105,21 +121,22 @@ class Input extends Component {
                   );
                 case 'select':
                   return (
-                    <FormControl variant="outlined">
+                    <FormControl variant="outlined"  className={className}>
                     <InputLabel  id={this.props.label+'label'}>
                     {this.props.label}
                     </InputLabel>
                     <Select
                       labelId={this.props.label+'label'}
                       id={this.props.label}
+                      disabled={this.props.disabled} 
                       {...this.props.field} 
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {
+                        this.props.options.map((option)=>{
+                          return (<MenuItem value={option.value}>{option.label}</MenuItem>)
+
+                        })
+                      }
                     </Select>
                   </FormControl>
                   )
@@ -128,7 +145,19 @@ class Input extends Component {
                 return (
                   <TextField label={this.props.label} multiline rowsMax="4" placeholder={this.props.placeholder} className={className} {...this.props.field} type={this.props.type} variant="outlined" />
                 )
-
+              case 'checkbox':
+                  return (
+                    <div className={css(styles.checkboxContainer)}>
+                    <Checkbox disabled={this.props.disabled}  label={this.props.label} className={className} {...this.props.field} type={this.props.type}  />
+                    <small><b>{this.props.label}</b></small>
+                    </div>
+                    )
+              case 'radio':
+                    return <Radio 
+                    {...this.props} 
+                    {...this.props.field}
+                    value = {this.props.form.values[this.props.field.name]}
+                    onChange={value => {this.props.form.setFieldValue(this.props.field.name,value)}} ></Radio>
             default:
             break;
         }
@@ -168,3 +197,12 @@ class ConnectedInput extends Component {
 
 
 export default ConnectedInput;
+
+
+const styles = StyleSheet.create({
+  checkboxContainer: {
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center'
+  }
+})

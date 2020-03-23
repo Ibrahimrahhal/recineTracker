@@ -23,6 +23,26 @@ const styles = StyleSheet.create({
     },
     scrolbars:{
         maxHeight:"65vh"
+    },
+    closeBtn:{
+        display:'block',
+        margin:'0.6rem auto',
+        userSelect:'none',
+        textAlign:'center'
+
+    }, 
+    loader:{
+        color:config.mainColor,
+        margin:'0 auto',
+        marginTop:'9rem',
+        display:'block'
+    },
+    nocalls:{
+        width:'25vw',
+        height:'auto',
+        display:'block',
+        margin:'0 auto',
+        marginTop:'8rem'
     }
 });
 

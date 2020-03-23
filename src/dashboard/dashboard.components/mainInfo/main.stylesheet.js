@@ -52,7 +52,20 @@ const styles = StyleSheet.create({
         position:'fixed',
         bottom:'1rem',
         right:'1rem'
-    }
+    },
+    loader:{
+        color:config.mainColor,
+        margin:'0 auto',
+        marginTop:'9rem',
+        display:'block'
+    },
+    deleteBtn:{
+        color:'#da1f26',
+        display:'block',
+        marginBottom:'1rem',
+        marginLeft:'0.7rem',
+        cursor:'pointer'
+        },
 });
 
 export default styles;

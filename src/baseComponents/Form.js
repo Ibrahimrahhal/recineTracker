@@ -10,7 +10,7 @@ class FormCustom extends Component {
         window['form'] = this.props
         return (
             <Formik {...this.props.formProps}>
-                <Form>
+                <Form className={this.props.className}>
                     {this.props.children}
                 </Form>
             </Formik>

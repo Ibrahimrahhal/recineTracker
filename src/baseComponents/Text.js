@@ -7,7 +7,7 @@ class Text extends Component {
     render() {
         const {Type, Weight, Cap, Style, className, Align, Color} = this.props;
         return (
-            <Type style={Style}  className={css(styles['text'], Weight && styles[Weight], Cap && styles['allCap'], Align && styles[Align], Color && styles['color'+Color] ) + " " + className}>
+            <Type style={Style} onClick = {this.props.onClick} className={css(styles['text'], Weight && styles[Weight], Cap && styles['allCap'], Align && styles[Align], Color && styles['color'+Color], this.props.stylesheet ) + " " + className}>
                 {this.props.children}
             </Type>
         );

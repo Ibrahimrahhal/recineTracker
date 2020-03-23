@@ -10,7 +10,7 @@ export default class ButtonCustom extends Component {
     render() {
         const {className, type} = this.props
         return (
-        <Button type={type} className={css(style.button,this.props.rounded && style.rounded, this.props.bold && style.bold, this.props.light && style.light, this.props.long && style.long, this.props.centered && style.centered, this.props.style, this.props.outline && style.outline, this.props.noShadow && style.noShadow) + ' ' + className} onClick={this.props.onClick} variant="contained" color="primary">
+        <Button type={type} disabled={this.props.disabled} className={css(style.button,this.props.rounded && style.rounded, this.props.bold && style.bold, this.props.light && style.light, this.props.long && style.long, this.props.centered && style.centered, this.props.style, this.props.outline && style.outline, this.props.noShadow && style.noShadow) + ' ' + className} onClick={this.props.onClick} variant="contained" color="primary">
         {this.props.loading?<CircularProgress size={20} color={"#fff"}/>:this.props.children}
         </Button>
         )

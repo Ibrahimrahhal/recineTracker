@@ -4,13 +4,13 @@ class NgIf extends Component {
         super(props);
         this.state = {  };
     }
+    getChildren(){
+        if(this.props.exp)
+        return this.props.children;
+        else return this.props.else || "";
+    }
     render() {
-        let Else = this.props.else
-        return (
-            <>
-            {this.props.exp?this.props.children:Else?Else:""}
-            </>
-        );
+        return ( this.getChildren() );
     }
 }
 

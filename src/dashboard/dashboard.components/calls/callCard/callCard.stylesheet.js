@@ -89,7 +89,18 @@ displayFlex:{
 },
 small:{
     transform:'scale(0.8)'
-}
+},
+paddingTop:{
+    paddingTop:'1rem'
+},
+deleteBtn:{
+color:'#da1f26',
+display:'block',
+marginBottom:'1rem',
+marginLeft:'0.7rem',
+cursor:'pointer'
+},
+deleteLoad:{}
 
 
 });

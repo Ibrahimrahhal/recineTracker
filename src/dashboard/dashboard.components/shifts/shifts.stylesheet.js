@@ -41,7 +41,13 @@ const styles = StyleSheet.create({
    tableBodyOdd:{
     backgroundColor:config.whiteColor
 
-   }
+   },
+   loader:{
+    color:config.mainColor,
+    margin:'0 auto',
+    marginTop:'9rem',
+    display:'block'
+},
 });
 
 export default styles;
